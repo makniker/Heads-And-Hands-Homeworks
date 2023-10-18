@@ -3,7 +3,7 @@ package com.example.lesson_1_yermakov
 import com.example.lesson_1_yermakov.data.Student
 import java.io.IOException
 
-class StudentMapper {
+object StudentMapper {
     private fun isGoodString(parts: List<String>): Boolean {
         val year: Int = parts[3].toInt()
         val grade: String = parts[2]

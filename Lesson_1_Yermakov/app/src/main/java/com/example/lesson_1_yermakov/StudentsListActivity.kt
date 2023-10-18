@@ -36,13 +36,17 @@ class StudentsListActivity : AppCompatActivity() {
             // показываем сообщение об ошибке.
             studentsListEditText.setOnClickListener {
                 studentsListEditText.setOnKeyListener { _, keyCode, keyEvent ->
-                    if ((keyEvent.action == KeyEvent.ACTION_UP) &&
+                    if ((keyEvent.action == KeyEvent.ACTION_DOWN) &&
                         (keyCode == KeyEvent.KEYCODE_ENTER)
                     ) {
-                        studentsListEditText.text.clear()
                         try {
                             val text = studentsListEditText.text.toString()
                             studentList.saveStudent(text)
+                            Toast.makeText(
+                                this@StudentsListActivity,
+                                getText(R.string.input_success),
+                                Toast.LENGTH_LONG
+                            ).show()
                         } catch (e: Exception) {
                             Toast.makeText(
                                 this@StudentsListActivity,
@@ -50,6 +54,7 @@ class StudentsListActivity : AppCompatActivity() {
                                 Toast.LENGTH_LONG
                             ).show()
                         }
+                        studentsListEditText.text.clear()
                         return@setOnKeyListener true
                     }
                     false

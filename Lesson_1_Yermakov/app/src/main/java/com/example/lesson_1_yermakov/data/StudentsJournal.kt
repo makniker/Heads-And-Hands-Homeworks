@@ -4,9 +4,8 @@ import com.example.lesson_1_yermakov.StudentMapper
 
 class StudentsJournal : Repository {
     private val set = mutableSetOf<Student>()
-    private val mapper = StudentMapper()
     override fun saveStudent(text: String) {
-        val student = mapper.map(text)
+        val student = StudentMapper.map(text)
         set.add(student)
     }
 
