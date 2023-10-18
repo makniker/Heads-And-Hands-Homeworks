@@ -1,26 +1,34 @@
 package com.example.lesson_1_yermakov
 
 import com.example.lesson_1_yermakov.data.Student
-import java.io.IOException
 
 object StudentMapper {
-    private fun isGoodString(parts: List<String>): Boolean {
-        val year: Int = parts[3].toInt()
-        val grade: String = parts[2]
-        return parts.size == 4
-                && parts[0].isNotEmpty()
-                && parts[1].isNotEmpty()
-                && (year in 1..2022)
-                && grade.length == 2
-                && grade[0].isDigit()
-                && (grade[1].uppercaseChar() in 'А' .. 'Е')
-    }
-
     fun map(text: String): Student {
         val parts = text.split(" ")
-        if (isGoodString(parts)) {
+        var year: Int
+        var grade: String
+        try {
+            year = parts[3].toInt()
+            grade = parts[2]
+            if (parts.size != 4) {
+                throw Exception("Not so much arguments")
+            }
+            if (parts[0].isEmpty() || parts[1].isEmpty()) {
+                throw Exception("Empty string")
+            }
+            if (!grade[0].isDigit()
+                || grade[1].uppercaseChar() !in 'А'..'Е'
+                || grade.length != 2) {
+                throw Exception("Bad grade input!")
+            }
+            if (year !in 1..2022) {
+                throw Exception("Bad grade input!")
+            }
             return Student(parts[0], parts[1], parts[2], parts[3].toInt())
+        } catch (e: NumberFormatException) {
+            throw Exception("Cant convert year to string")
+        } catch (e: IllegalArgumentException) {
+            throw Exception("Cant split string")
         }
-        throw IOException("Wrong String!")
     }
 }

@@ -50,7 +50,7 @@ class StudentsListActivity : AppCompatActivity() {
                         } catch (e: Exception) {
                             Toast.makeText(
                                 this@StudentsListActivity,
-                                getText(R.string.input_error),
+                                e.message,
                                 Toast.LENGTH_LONG
                             ).show()
                         }
