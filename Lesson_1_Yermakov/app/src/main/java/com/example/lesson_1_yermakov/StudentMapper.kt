@@ -22,7 +22,7 @@ object StudentMapper {
                 throw Exception("Bad grade input!")
             }
             if (year !in 1..2022) {
-                throw Exception("Bad grade input!")
+                throw Exception("Bad year input!")
             }
             return Student(parts[0], parts[1], parts[2], parts[3].toInt())
         } catch (e: NumberFormatException) {
