@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".StudentsJournalActivity">
+
+    <EditText
+        android:id="@+id/students_journal_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Дмитрий Томилов 1Г 1999" />
+
+    <TextView
+        android:id="@+id/students_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        tools:text="Дмитрий Томилов 1Г 1999\nДмитрий Томилов 1Г 1999\nДмитрий Томилов 1Г 1999\nДмитрий Томилов 1Г 1999" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/save_student_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_student" />
+
+    <Button
+        android:id="@+id/show_students_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_students" />
+</LinearLayout>

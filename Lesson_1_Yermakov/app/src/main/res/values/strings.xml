@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lesson_1_Yermakov</string>
+    <string name="to_first_screen">To first screen</string>
+    <string name="to_second_screen">To second screen</string>
+    <string name="save_student">Save student</string>
+    <string name="show_students">Show students</string>
+    <string name="input_error">Wrong text, cannot map to Student</string>
+    <string name="input_success">Student saved!</string>
+</resources>
