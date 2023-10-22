@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">3Fragments</string>
+    <string name="button_text">Нажми меня!</string>
+    <string name="pushkin_lyrics">Лихой товарищ наших дедов,\nОн друг Венеры и пиров,\nОн на обедах — бог обедов,\nВ своих садах — он бог садов.</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+</resources>
