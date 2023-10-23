@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 
-class EditFragment: Fragment() {
+class EditFragment : Fragment() {
 
     private val args: EditFragmentArgs by navArgs()
 
@@ -27,7 +27,17 @@ class EditFragment: Fragment() {
         editMessage.setText(args.message)
         val saveButton = view.findViewById<Button>(R.id.save_message_button)
         saveButton.setOnClickListener {
-            findNavController().navigate(EditFragmentDirections.actionEditFragmentToMessageFragment(editMessage.text.toString()))
+            if (editMessage.text.toString().isEmpty()) {
+                findNavController().navigate(
+                    EditFragmentDirections.actionEditFragmentToMessageFragment()
+                )
+            } else {
+                findNavController().navigate(
+                    EditFragmentDirections.actionEditFragmentToMessageFragment(
+                        editMessage.text.toString()
+                    )
+                )
+            }
         }
     }
 }
