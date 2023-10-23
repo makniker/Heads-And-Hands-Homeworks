@@ -27,6 +27,7 @@ class EditFragment : Fragment() {
         editMessage.setText(args.message)
         val saveButton = view.findViewById<Button>(R.id.save_message_button)
         saveButton.setOnClickListener {
+            //если строка пустая, то отправляем дефолтный аргумент
             if (editMessage.text.toString().isEmpty()) {
                 findNavController().navigate(
                     EditFragmentDirections.actionEditFragmentToMessageFragment()

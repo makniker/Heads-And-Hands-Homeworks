@@ -13,6 +13,7 @@ class MainActivity : AppCompatActivity() {
 
         val layout = findViewById<LinearLayout>(R.id.button_list)
         val firstButton = layout.getChildAt(0)
+        firstButton.isEnabled = false
         val secondButton = layout.getChildAt(2)
         val thirdButton = layout.getChildAt(4)
 
