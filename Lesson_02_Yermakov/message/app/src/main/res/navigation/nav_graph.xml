@@ -8,10 +8,6 @@
         android:id="@+id/message_fragment"
         android:name="com.example.message.MessageFragment"
         android:label="MessageFragment">
-        <argument
-            android:name="edit_message"
-            app:argType="string"
-            android:defaultValue="Empty message was entered"/>
         <action
             android:id="@+id/action_message_fragment_to_edit_fragment"
             app:destination="@id/edit_fragment" >
@@ -29,13 +25,5 @@
             android:name="message"
             app:argType="string"
             android:defaultValue="You don't enter any messages"/>
-        <action
-            android:id="@+id/action_edit_fragment_to_message_fragment"
-            app:destination="@id/message_fragment">
-            <argument
-                android:name="edit_message"
-                app:argType="string"
-                android:defaultValue="Empty message was entered"/>
-        </action>
     </fragment>
 </navigation>
