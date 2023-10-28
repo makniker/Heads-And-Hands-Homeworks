@@ -1,7 +1,7 @@
 package com.example.a3fragments
 
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
@@ -11,11 +11,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val layout = findViewById<LinearLayout>(R.id.button_list)
-        val firstButton = layout.getChildAt(0)
+        val firstButton = findViewById<Button>(R.id.button1)
         firstButton.isEnabled = false
-        val secondButton = layout.getChildAt(2)
-        val thirdButton = layout.getChildAt(4)
+        val secondButton = findViewById<Button>(R.id.button2)
+        val thirdButton = findViewById<Button>(R.id.button3)
 
         firstButton.setOnClickListener {
             supportFragmentManager.commit {
