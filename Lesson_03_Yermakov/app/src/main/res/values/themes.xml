@@ -1,0 +1,13 @@
+<resources>
+    <style name="Base.V27.Theme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:navigationBarColor">@color/black_20pc</item>
+    </style>
+
+    <style name="Theme.Lesson_03_Yermakov" parent="Base.V27.Theme">
+        <item name="textInputStyle">@style/Theme.Lesson_03_Yermakov.TextInputLayout</item>
+        <item name="buttonStyle">@style/Theme.Lesson_03_Yermakov.Button</item>
+        <item name="snackbarStyle">@style/Theme.Lesson_03_Yermakov.Snackbar</item>
+        <item name="colorPrimary">@color/smalt</item>
+        <item name="android:statusBarColor">@color/black_20pc</item>
+    </style>
+</resources>
