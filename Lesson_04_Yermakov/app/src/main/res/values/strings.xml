@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Lesson_04_Yermakov</string>
+    <string name="enter_your_message">Enter your message!</string>
+    <string name="your_message_will_appear_here">Your message will appear here</string>
+</resources>
