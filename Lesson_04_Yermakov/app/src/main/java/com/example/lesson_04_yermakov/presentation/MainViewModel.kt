@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 
-class MainViewModel(private val wrapper: LiveDataWrapper) : ViewModel() {
+class MainViewModel : ViewModel() {
+    private val storedLiveData by lazy { MutableLiveData<String>() }
     fun save(text: String) {
-        wrapper.save(text)
+        storedLiveData.value = text
     }
 
     fun observe(owner: LifecycleOwner, observer: Observer<String>) =
-        wrapper.observe(owner, observer)
+        storedLiveData.observe(owner, observer)
 }
