@@ -30,8 +30,8 @@ class EditFragment : Fragment() {
         val saveButton = view.findViewById<Button>(R.id.save_message_button)
         saveButton.setOnClickListener {
             setFragmentResult(
-                "returnEditMessageKey",
-                bundleOf(Pair("editedMessage", editMessage.text.toString()))
+                RETURN_MESSAGE_KEY,
+                bundleOf(EDITED_MESSAGE_KEY to editMessage.text.toString())
             )
             findNavController().popBackStack()
         }
