@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                 val text = inputMessage.editText?.text.toString()
                 mainViewModel.save(text)
             }
-            mainViewModel.observe(this@MainActivity, observer)
+            mainViewModel.storedLiveData.observe(this@MainActivity, observer)
         }
     }
 }
