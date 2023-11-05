@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/message_fragment">
+
+    <fragment
+        android:id="@+id/message_fragment"
+        android:name="com.example.message.MessageFragment"
+        android:label="MessageFragment">
+        <action
+            android:id="@+id/action_message_fragment_to_edit_fragment"
+            app:destination="@id/edit_fragment" >
+            <argument
+                android:name="message"
+                app:argType="string"
+                android:defaultValue="You don't enter any messages"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/edit_fragment"
+        android:name="com.example.message.EditFragment"
+        android:label="EditFragment">
+        <argument
+            android:name="message"
+            app:argType="string"
+            android:defaultValue="You don't enter any messages"/>
+    </fragment>
+</navigation>
