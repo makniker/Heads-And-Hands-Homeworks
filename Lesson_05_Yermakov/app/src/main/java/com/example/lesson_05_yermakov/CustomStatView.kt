@@ -4,13 +4,14 @@ import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-
 
 class CustomView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
@@ -23,7 +24,8 @@ class CustomView @JvmOverloads constructor(
     private val aspect = 150 / 360f
     private val columnCoef = 0.85f
     private val maxValue = 100
-    val columnAnimator = ValueAnimator.ofFloat(
+    private val roundRadio = 50f
+    val columnAnimator: ValueAnimator = ValueAnimator.ofFloat(
         0f,
         100f
     ).apply {
@@ -53,7 +55,7 @@ class CustomView @JvmOverloads constructor(
 
     fun setData() {
         dataList.clear()
-        columnArrayLength = 9
+        columnArrayLength = random.nextInt(9) + 1
         val currentDate = Calendar.getInstance()
         for (i in 0 until columnArrayLength) {
             val pastDate = Calendar.getInstance()
@@ -128,8 +130,8 @@ class CustomView @JvmOverloads constructor(
                 columnY,
                 right,
                 columnY - columnLength,
-                50f,
-                50f,
+                roundRadio,
+                roundRadio,
                 columnPaint
             )
             canvas.drawText(
@@ -148,8 +150,45 @@ class CustomView @JvmOverloads constructor(
         }
     }
 
-    override fun onDetachedFromWindow() {
-        super.onDetachedFromWindow()
+    private class SavedState : BaseSavedState {
+        lateinit var listOfSavedData: MutableList<Content>
+        lateinit var listOfSavedCurrentData: MutableList<Float>
+        var numOfSavedColumns: Int = 0
+
+        constructor(superState: Parcelable) : super(superState)
+
+        constructor(parcel: Parcel) : super(parcel)
+
+        companion object CREATOR : Parcelable.Creator<SavedState> {
+            override fun createFromParcel(parcel: Parcel): SavedState {
+                return SavedState(parcel)
+            }
+
+            override fun newArray(size: Int): Array<SavedState?> {
+                return arrayOfNulls(size)
+            }
+        }
+    }
+
+    override fun onSaveInstanceState(): Parcelable? {
+        return super.onSaveInstanceState()?.let {
+            SavedState(it).apply {
+                listOfSavedData = dataList
+                listOfSavedCurrentData = currentData
+                numOfSavedColumns = columnArrayLength
+            }
+        }
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        if (state is SavedState) {
+            dataList = state.listOfSavedData
+            currentData = state.listOfSavedCurrentData
+            columnArrayLength = state.numOfSavedColumns
+            super.onRestoreInstanceState(state.superState)
+        } else {
+            super.onRestoreInstanceState(state)
+        }
     }
 
     private data class Content(val date: String, val value: Int)
