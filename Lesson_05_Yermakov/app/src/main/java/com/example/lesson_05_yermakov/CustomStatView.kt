@@ -7,6 +7,8 @@ import android.graphics.Paint
 import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
@@ -25,7 +27,7 @@ class CustomView @JvmOverloads constructor(
     private val columnCoef = 0.85f
     private val maxValue = 100
     private val roundRadio = 50f
-    val columnAnimator: ValueAnimator = ValueAnimator.ofFloat(
+    private val columnAnimator: ValueAnimator = ValueAnimator.ofFloat(
         0f,
         100f
     ).apply {
@@ -82,8 +84,29 @@ class CustomView @JvmOverloads constructor(
         lineColor = typedArray.getColor(R.styleable.CustomView_lineColor, lineColor)
         textColor = typedArray.getColor(R.styleable.CustomView_textColor, textColor)
         typedArray.recycle()
-        startMyAnimation()
     }
+
+    private val myListener =  object : GestureDetector.SimpleOnGestureListener() {
+        override fun onDown(e: MotionEvent): Boolean {
+            return true
+        }
+    }
+
+    private val detector: GestureDetector = GestureDetector(context, myListener)
+
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return when {
+            detector.onTouchEvent(event) -> true
+            event.action == MotionEvent.ACTION_UP -> {
+                startMyAnimation()
+                true
+            }
+
+            else -> false
+        }
+    }
+
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
