@@ -40,7 +40,7 @@
         <item name="hintTextAppearance">
             @style/TextAppearance.TextField.Hint
         </item>
-        <item name="errorIconDrawable">@android:color/transparent</item>
+        <item name="errorIconDrawable">@null</item>
         <item name="android:textColorHint">@color/silver_chalice</item>
         <item name="hintTextColor">@color/silver_chalice</item>
         <item name="endIconTint">@color/black</item>
