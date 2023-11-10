@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Lesson_03_Yermakov</string>
+    <string name="sign_in">Войти</string>
+    <string name="sign_in_title">@string/sign_in</string>
+    <string name="sign_in_login_hint">Логин</string>
+    <string name="sign_in_password_hint">Пароль</string>
+    <string name="sign_in_action">@string/sign_in</string>
+    <string name="snackbar_base_error">Произошла непредвиденная ошибка.\nПожалуйста, попробуйте позже</string>
+    <string name="input_base_error">Поле заполнено неверно</string>
+</resources>
