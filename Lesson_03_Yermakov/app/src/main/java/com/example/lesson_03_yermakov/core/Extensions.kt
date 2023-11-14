@@ -1,7 +1,9 @@
 package com.example.lesson_03_yermakov.core
 
+import android.app.Activity
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
+import androidx.core.view.WindowCompat
 import androidx.fragment.app.Fragment
 import com.example.lesson_03_yermakov.data.responsemodel.ErrorBaseResponse
 import com.google.gson.Gson
@@ -22,4 +24,8 @@ fun Exception.getError(): String? {
     } else {
         message
     }
+}
+
+fun Activity.fitContentViewToInsets(fit: Boolean) {
+    WindowCompat.setDecorFitsSystemWindows(window, fit)
 }

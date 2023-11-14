@@ -19,7 +19,6 @@
     </style>
 
     <style name="TextAppearance.Error.H1">
-        <item name="android:maxLines">1</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/text_h1_error_size</item>
         <item name="android:lineSpacingExtra">@dimen/text_h1_error_line</item>
@@ -83,5 +82,18 @@
     <style name="Theme.Lesson_03_Yermakov.Snackbar" parent="Widget.MaterialComponents.Snackbar">
         <item name="android:backgroundTint">@color/red</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Theme.Lesson_03_Yermakov.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Theme.Lesson_03_Yermakov.ShapeableImageView" parent="Widget.MaterialComponents.ShapeableImageView">
+        <item name="shapeAppearanceOverlay">@style/RoundedSquare</item>
+    </style>
+
+    <style name="RoundedSquare" >
+        <item name="cornerSize">10%</item>
     </style>
 </resources>

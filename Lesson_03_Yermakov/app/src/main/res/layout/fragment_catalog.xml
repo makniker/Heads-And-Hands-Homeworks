@@ -3,18 +3,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@null"
-    tools:context=".presentation.ui.catalog.CatalogFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".presentation.ui.catalog.CatalogFragment"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:title="@string/catalog" />
 
     <ViewFlipper
+        android:id="@+id/flipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <include layout="@layout/error_layout"/>
+        <include layout="@layout/error_layout"
+            android:id="@+id/error_layout"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        <ProgressBar
+            android:id="@+id/loading"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
-
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/smalt"
+            android:indeterminate="true"/>
     </ViewFlipper>
 </LinearLayout>

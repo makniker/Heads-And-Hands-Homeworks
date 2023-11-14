@@ -11,4 +11,5 @@
     <string name="error_multiline_text">Детальный текст ошибки, занимающий несколько строк</string>
     <string name="input_base_error">Поле заполнено неверно</string>
     <string name="input_empty_error">Поле не должно быть пустым</string>
+    <string name="catalog">Каталог</string>
 </resources>

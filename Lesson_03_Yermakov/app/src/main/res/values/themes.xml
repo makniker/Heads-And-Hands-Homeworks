@@ -10,5 +10,6 @@
         <item name="colorPrimary">@color/smalt</item>
         <item name="android:statusBarColor">@color/black_20pc</item>
         <item name="android:windowBackground">@color/seashell</item>
+        <item name="toolbarStyle">@style/Theme.Lesson_03_Yermakov.Toolbar</item>
     </style>
 </resources>
