@@ -16,16 +16,15 @@
         <ImageButton
             android:id="@+id/profile_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:src="@drawable/ic_profile"
             android:background="@null"
             android:layout_gravity="end"
             android:scaleX="1.5"
             android:scaleY="1.5"
-            android:clickable="true"
-            style="?selectableItemBackground"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_marginEnd="@dimen/normal_200"
-            android:focusable="true" />
+            />
     </androidx.appcompat.widget.Toolbar>
 
     <ViewFlipper

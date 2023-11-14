@@ -2,10 +2,10 @@ package com.example.lesson_03_yermakov.presentation.ui.catalog
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -16,6 +16,7 @@ import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
 import com.example.lesson_03_yermakov.databinding.FragmentCatalogBinding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+
 
 class CatalogFragment : Fragment() {
 
@@ -49,7 +50,12 @@ class CatalogFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
-            recyclerView.addItemDecoration(DividerItemDecoration(requireContext(), RecyclerView.VERTICAL))
+            recyclerView.addItemDecoration(
+                DividerItemDecoration(
+                    requireContext(),
+                    RecyclerView.VERTICAL
+                )
+            )
             recyclerView.adapter = adapter
             viewModel.fetchCatalog()
             viewModel.catalogLiveData.observe(viewLifecycleOwner) { result ->
@@ -58,10 +64,12 @@ class CatalogFragment : Fragment() {
                         flipper.displayedChild = UIStates.SUCCESS_VIEW.ordinal
                         adapter.items = result.data
                     }
+
                     is ResponseStates.Failure -> {
                         flipper.displayedChild = UIStates.FAILURE_VIEW.ordinal
                         errorLayout.errorText.text = result.e.getError()
                     }
+
                     is ResponseStates.Loading -> {
                         flipper.displayedChild = UIStates.LOADING_VIEW.ordinal
                     }
@@ -78,7 +86,7 @@ class CatalogFragment : Fragment() {
         _binding = null
     }
 
-    private enum class UIStates{
+    private enum class UIStates {
         FAILURE_VIEW,
         SUCCESS_VIEW,
         LOADING_VIEW,
