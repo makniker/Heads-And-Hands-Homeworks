@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/normal_100"
-    android:layout_marginEnd="@dimen/normal_100"
     android:fitsSystemWindows="true"
+    android:background="@color/white"
     tools:context=".presentation.ui.signIn.SignInFragment">
 
     <TextView
@@ -15,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/sign_in_title"
+        android:layout_marginHorizontal="@dimen/normal_100"
         app:layout_constraintBottom_toTopOf="@id/layoutLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/normal_200"
         android:hint="@string/sign_in_login_hint"
+        android:layout_marginHorizontal="@dimen/normal_100"
         app:layout_constraintBottom_toTopOf="@id/layoutPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +50,7 @@
         android:hint="@string/sign_in_password_hint"
         app:passwordToggleEnabled="true"
         app:passwordToggleDrawable="@drawable/ic_eye_selector"
+        android:layout_marginHorizontal="@dimen/normal_100"
         app:layout_constraintBottom_toTopOf="@id/buttonSignIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -62,32 +64,15 @@
             android:inputType="textPassword"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/buttonSignIn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:elevation="1dp"
-            android:text="@string/sign_in_action"
-            android:layout_marginTop="@dimen/normal_300"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layoutPassword"/>
-        <ProgressBar
-            android:id="@+id/loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:elevation="3dp"
-            android:indeterminateTint="@color/white"
-            android:indeterminate="true"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            app:layout_constraintBottom_toBottomOf="@id/buttonSignIn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/buttonSignIn"/>
+    <com.example.lesson_03_yermakov.presentation.ui.view.LoadableButton
+        android:id="@+id/buttonSignIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/normal_300"
+        android:layout_marginHorizontal="@dimen/normal_100"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutPassword"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

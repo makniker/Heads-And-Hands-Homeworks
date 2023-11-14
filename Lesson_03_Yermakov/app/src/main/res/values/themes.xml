@@ -5,9 +5,10 @@
 
     <style name="Theme.Lesson_03_Yermakov" parent="Base.V27.Theme">
         <item name="textInputStyle">@style/Theme.Lesson_03_Yermakov.TextInputLayout</item>
-        <item name="buttonStyle">@style/Theme.Lesson_03_Yermakov.Button</item>
+        <item name="buttonStyle">@style/Theme.Lesson_03_Yermakov.Button.Big</item>
         <item name="snackbarStyle">@style/Theme.Lesson_03_Yermakov.Snackbar</item>
         <item name="colorPrimary">@color/smalt</item>
         <item name="android:statusBarColor">@color/black_20pc</item>
+        <item name="android:windowBackground">@color/seashell</item>
     </style>
 </resources>

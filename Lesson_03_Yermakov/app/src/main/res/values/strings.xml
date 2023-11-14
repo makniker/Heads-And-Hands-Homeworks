@@ -5,6 +5,10 @@
     <string name="sign_in_login_hint">Логин</string>
     <string name="sign_in_password_hint">Пароль</string>
     <string name="sign_in_action">@string/sign_in</string>
+    <string name="refresh">Обновить</string>
     <string name="snackbar_base_error">Произошла непредвиденная ошибка.\nПожалуйста, попробуйте позже</string>
+    <string name="base_error">Произошла непредвиденная ошибка.</string>
+    <string name="error_multiline_text">Детальный текст ошибки, занимающий несколько строк</string>
     <string name="input_base_error">Поле заполнено неверно</string>
+    <string name="input_empty_error">Поле не должно быть пустым</string>
 </resources>

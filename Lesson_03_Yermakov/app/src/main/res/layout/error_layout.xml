@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/error_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_error_logo"/>
+
+    <TextView
+        android:id="@+id/error_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Error.H1"
+        android:layout_marginTop="@dimen/normal_100"
+        android:layout_marginHorizontal="@dimen/normal_100"
+        android:text="@string/base_error"/>
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/normal_100"
+        style="@style/TextAppearance.Error.Body1"
+        android:text="@string/error_multiline_text"/>
+    <Button
+        android:id="@+id/refresh_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Theme.Lesson_03_Yermakov.Button.Small"
+        android:text="@string/refresh"
+        android:layout_marginVertical="@dimen/normal_100"/>
+
+</LinearLayout>

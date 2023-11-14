@@ -8,5 +8,9 @@
     <dimen name="text_body_size">16dp</dimen>
     <dimen name="text_body_line">24dp</dimen>
     <dimen name="text_button_line">16dp</dimen>
+    <dimen name="text_h1_error_size">18dp</dimen>
+    <dimen name="text_h1_error_line">18dp</dimen>
+    <dimen name="text_body_error_size">16dp</dimen>
+    <dimen name="text_body_error_line">4dp</dimen>
     <dimen name="text_input_layout">8dp</dimen>
 </resources>

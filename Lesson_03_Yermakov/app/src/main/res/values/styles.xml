@@ -13,9 +13,26 @@
         <item name="android:lineSpacingExtra">@dimen/text_body_line</item>
     </style>
 
-    <style name="TextAppearance.TextField" parent="TextAppearance.Body1"/>
+    <style name="TextAppearance.Error">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/silver_chalice</item>
+    </style>
 
-    <style name="TextAppearance.TextField.Hint" parent="TextAppearance.Body1"/>
+    <style name="TextAppearance.Error.H1">
+        <item name="android:maxLines">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_h1_error_size</item>
+        <item name="android:lineSpacingExtra">@dimen/text_h1_error_line</item>
+    </style>
+
+    <style name="TextAppearance.Error.Body1">
+        <item name="android:textSize">@dimen/text_body_error_size</item>
+        <item name="android:lineSpacingExtra">@dimen/text_body_error_line</item>
+    </style>
+
+    <style name="TextAppearance.TextField" parent="TextAppearance.Body1" />
+
+    <style name="TextAppearance.TextField.Hint" parent="TextAppearance.Body1" />
 
     <style name="TextAppearance.Button" parent="TextAppearance.Body1">
         <item name="android:lineSpacingExtra">@dimen/text_button_line</item>
@@ -49,11 +66,18 @@
         <item name="errorContentDescription">@string/input_base_error</item>
     </style>
 
-    <style name="Theme.Lesson_03_Yermakov.Button"
-        parent="Widget.MaterialComponents.Button.UnelevatedButton">
+    <style name="Theme.Lesson_03_Yermakov.Button.Big" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textAppearance">
             @style/TextAppearance.Button
         </item>
+    </style>
+
+    <style name="Theme.Lesson_03_Yermakov.Button.Small" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="android:textAppearance">
+            @style/TextAppearance.Button
+        </item>
+        <item name="android:background">@drawable/small_button</item>
+        <item name="android:lineSpacingExtra">-4dp</item>
     </style>
 
     <style name="Theme.Lesson_03_Yermakov.Snackbar" parent="Widget.MaterialComponents.Snackbar">
