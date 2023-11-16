@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:padding="@dimen/normal_100"
+    android:background="@color/white">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/product_image"
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:scaleType="centerCrop"
+        style="@style/Theme.Lesson_03_Yermakov.ShapeableImageView"
+        tool:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_100"
+        android:maxLines="2"
+        android:textAppearance="@style/TextAppearance.Card"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/product_image"
+        app:layout_constraintTop_toTopOf="@id/product_image"
+        tool:text="Nike Tampa Bay Buccaneers Super Bowl LV sfngk dsd sdds dsdsd sdsds dsd" />
+    <TextView
+        android:id="@+id/department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tool:text="Джерси"
+        android:textAppearance="@style/TextAppearance.Card"
+        android:textColor="@color/silver_chalice"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintTop_toBottomOf="@id/title"/>
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tool:text="9 000 ₽"
+        android:textAppearance="@style/TextAppearance.Card"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintBottom_toBottomOf="@id/product_image"/>
+
+    <Button
+        android:id="@+id/buy_button"
+        style="@style/Theme.Lesson_03_Yermakov.Button.Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/buy"
+        app:layout_constraintBottom_toBottomOf="@id/price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/price" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

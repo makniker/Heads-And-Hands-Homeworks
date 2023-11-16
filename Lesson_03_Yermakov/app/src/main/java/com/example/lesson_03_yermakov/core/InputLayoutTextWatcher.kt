@@ -7,8 +7,6 @@ import java.util.regex.Pattern
 
 open class InputLayoutTextWatcher(
     private val layout: TextInputLayout,
-    private val pattern: Pattern,
-    private val errorText: String
 ) : TextWatcher {
     override fun beforeTextChanged(
         s: CharSequence?,
@@ -22,10 +20,20 @@ open class InputLayoutTextWatcher(
     }
 
     override fun afterTextChanged(s: Editable?) {
-        layout.isErrorEnabled =
-            !pattern.matcher(s.toString()).matches()
-        if (layout.isErrorEnabled) {
+        layout.error = null
+    }
+}
+
+class InputLayoutTextWatcherWithPattern(
+    private val layout: TextInputLayout,
+    private val pattern: Pattern,
+    private val errorText: String
+) : InputLayoutTextWatcher(layout) {
+    override fun afterTextChanged(s: Editable?) {
+        if (!pattern.matcher(s.toString()).matches()){
             layout.error = errorText
+        } else {
+            layout.error = null
         }
     }
 }
