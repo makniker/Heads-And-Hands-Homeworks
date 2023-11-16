@@ -10,6 +10,7 @@ import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lesson_03_yermakov.R
 import com.example.lesson_03_yermakov.core.fitContentViewToInsets
 import com.example.lesson_03_yermakov.core.getError
 import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
@@ -56,13 +57,14 @@ class CatalogFragment : Fragment() {
                     RecyclerView.VERTICAL
                 )
             )
+            toolbar.inflateMenu(R.menu.catalog_menu)
             recyclerView.adapter = adapter
             viewModel.fetchCatalog()
             viewModel.catalogLiveData.observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is ResponseStates.Success -> {
                         flipper.displayedChild = UIStates.SUCCESS_VIEW.ordinal
-                        adapter.items = result.data
+                        adapter.submitList(result.data)
                     }
 
                     is ResponseStates.Failure -> {

@@ -8,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation.findNavController
 import com.example.lesson_03_yermakov.R
-import com.example.lesson_03_yermakov.core.InputLayoutTextWatcher
-import com.example.lesson_03_yermakov.core.InputLayoutTextWatcherWithPattern
 import com.example.lesson_03_yermakov.core.getError
 import com.example.lesson_03_yermakov.core.hideKeyboard
 import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
@@ -75,19 +74,17 @@ class SignInFragment : Fragment() {
                 performLogin()
             }
 
-            textLogin.addTextChangedListener(
-                InputLayoutTextWatcherWithPattern(
-                    layoutLogin,
-                    android.util.Patterns.EMAIL_ADDRESS,
-                    getString(R.string.input_base_error)
-                )
-            )
+            textLogin.doAfterTextChanged {
+                if (!android.util.Patterns.EMAIL_ADDRESS.matcher(it.toString()).matches()) {
+                    layoutLogin.error = getString(R.string.input_base_error)
+                } else {
+                    layoutLogin.error = null
+                }
+            }
 
-            textPassword.addTextChangedListener(
-                InputLayoutTextWatcher(
-                    layoutPassword,
-                )
-            )
+            textPassword.doAfterTextChanged {
+                layoutPassword.error = null
+            }
 
             textPassword.setOnEditorActionListener { _, actionId, event ->
                 if (actionId == EditorInfo.IME_ACTION_DONE
@@ -129,13 +126,11 @@ class SignInFragment : Fragment() {
         findNavController(binding.root).navigate(SignInFragmentDirections.actionSignInFragmentToCatalogFragment())
     }
 
-    private fun showSnackbarError(view: View, error: String) {
+    private fun showSnackbarError(
+        view: View,
+        error: String = getString(R.string.snackbar_base_error)
+    ) {
         Snackbar.make(view, error, Snackbar.LENGTH_LONG)
-            .show()
-    }
-
-    private fun showSnackbarError(view: View) {
-        Snackbar.make(view, getString(R.string.snackbar_base_error), Snackbar.LENGTH_LONG)
             .show()
     }
 

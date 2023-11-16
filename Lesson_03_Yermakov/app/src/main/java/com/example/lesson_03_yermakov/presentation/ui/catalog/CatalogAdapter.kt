@@ -1,5 +1,6 @@
 package com.example.lesson_03_yermakov.presentation.ui.catalog
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import javax.inject.Inject
 
 class CatalogAdapter @Inject constructor() :
     ListAdapter<UIModelCatalogProduct, CatalogAdapter.ProductViewHolder>(DIFF_UTIL) {
+    private lateinit var context: Context
 
     companion object {
         private val DIFF_UTIL = object : DiffUtil.ItemCallback<UIModelCatalogProduct>() {
@@ -27,15 +29,10 @@ class CatalogAdapter @Inject constructor() :
                 oldItem: UIModelCatalogProduct,
                 newItem: UIModelCatalogProduct
             ): Boolean {
-                return oldItem.preview == newItem.preview
-                        && oldItem.department == newItem.department
-                        && oldItem.title == newItem.title
-                        && oldItem.price == newItem.price
+                return oldItem == newItem
             }
         }
     }
-
-    var items = mutableListOf<UIModelCatalogProduct>()
 
     inner class ProductViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -47,7 +44,7 @@ class CatalogAdapter @Inject constructor() :
         fun bind(item: UIModelCatalogProduct) {
             title.text = item.title
             department.text = item.department
-            price.text = item.price.toString()
+            price.text = context.getString(R.string.price_format, item.price.toString())
             imageView.maxHeight = imageView.maxWidth
             Glide.with(imageView)
                 .load(item.preview)
@@ -56,14 +53,13 @@ class CatalogAdapter @Inject constructor() :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        context = parent.context
         return ProductViewHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.item_catalog, parent, false)
         )
     }
 
-    override fun getItemCount() = items.size
-
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(items[position])
+        holder.bind(currentList[position])
     }
 }

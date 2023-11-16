@@ -13,19 +13,6 @@
         android:layout_height="?attr/actionBarSize"
         app:titleTextColor="@color/white"
         app:title="@string/catalog" >
-        <ImageButton
-            android:id="@+id/profile_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_profile"
-            android:background="@null"
-            android:layout_gravity="end"
-            android:scaleX="1.5"
-            android:scaleY="1.5"
-            android:clickable="true"
-            style="?selectableItemBackground"
-            android:layout_marginEnd="@dimen/normal_200"
-            android:focusable="true" />
     </androidx.appcompat.widget.Toolbar>
 
     <ViewFlipper
