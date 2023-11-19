@@ -25,8 +25,13 @@ class CustomView @JvmOverloads constructor(
     private var currentData = mutableListOf<Float>()
     private val aspect = 150 / 360f
     private val columnCoef = 0.85f
-    private val maxValue = 100
-    private val roundRadio = 50f
+    private val textOffset = context.resources.getDimension(R.dimen.text_offset)
+    private val textSpaceCoef = 0.1f
+    private val roundRadio = context.resources.getDimension(R.dimen.round_ratio)
+    private val columnWidth = context.resources.getDimension(R.dimen.column_width)
+    private val halfColumnWidth = columnWidth / 2f
+    private var space = 0.0f
+    private var columnY = 0f
     private val columnAnimator: ValueAnimator = ValueAnimator.ofFloat(
         0f,
         100f
@@ -43,6 +48,7 @@ class CustomView @JvmOverloads constructor(
         }
     }
 
+    private var maxValue = 100
     private var lineColor = ContextCompat.getColor(context, R.color.purple)
     private var textColor = ContextCompat.getColor(context, R.color.white)
     private val columnPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -78,11 +84,12 @@ class CustomView @JvmOverloads constructor(
     }
 
     init {
-        setData()
         val typedArray =
             context.obtainStyledAttributes(attrs, R.styleable.CustomView, defStyleAttr, 0)
         lineColor = typedArray.getColor(R.styleable.CustomView_lineColor, lineColor)
         textColor = typedArray.getColor(R.styleable.CustomView_textColor, textColor)
+        maxValue = typedArray.getInt(R.styleable.CustomView_maxValue, maxValue)
+        setData()
         typedArray.recycle()
     }
 
@@ -102,7 +109,6 @@ class CustomView @JvmOverloads constructor(
                 startMyAnimation()
                 true
             }
-
             else -> false
         }
     }
@@ -131,23 +137,21 @@ class CustomView @JvmOverloads constructor(
             }
         }
         setMeasuredDimension(desiredWidth, desiredHeight)
+        space = (desiredWidth - columnWidth * columnArrayLength) / (columnArrayLength + 1).toFloat()
+        textPaint.textSize = desiredHeight * textSpaceCoef
+        columnY = desiredHeight * columnCoef
         invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-
-        val columnWidth = 40f
-        val space = (width - columnWidth * columnArrayLength) / (columnArrayLength + 1).toFloat()
-        textPaint.textSize = height * 0.1f
-        val columnY = height * columnCoef
         var left = 0f
         var right: Float
         for (i in 0 until columnArrayLength) {
             left += space
             right = left + columnWidth
             val columnLength =
-                (currentData[columnArrayLength - i - 1] / 100f) * (height * (columnCoef - 0.2f))
+                (currentData[columnArrayLength - i - 1] / 100f) * (height * (columnCoef - textSpaceCoef * 2))
             canvas.drawRoundRect(
                 left,
                 columnY,
@@ -159,14 +163,14 @@ class CustomView @JvmOverloads constructor(
             )
             canvas.drawText(
                 dataList[columnArrayLength - i - 1].date,
-                left + columnWidth / 2f,
+                left + halfColumnWidth,
                 (columnY) + textPaint.fontMetricsInt.run { descent - ascent },
                 textPaint
             )
             canvas.drawText(
                 dataList[columnArrayLength - i - 1].value.toString(),
-                left + columnWidth / 2f,
-                columnY - columnLength - 10f,
+                left + halfColumnWidth,
+                columnY - columnLength - textOffset,
                 textPaint
             )
             left = right
