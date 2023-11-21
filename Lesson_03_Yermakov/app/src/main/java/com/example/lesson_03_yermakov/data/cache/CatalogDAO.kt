@@ -14,6 +14,9 @@ interface CatalogDAO {
     @Query("SELECT * FROM productcache WHERE id= :id LIMIT 1")
     fun getByID(id: String): ProductCache
 
+    @Query("SELECT COUNT(*) AS count FROM productcache WHERE id = :id")
+    fun checkID(id: String): Int
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(list: List<ProductCache>)
 

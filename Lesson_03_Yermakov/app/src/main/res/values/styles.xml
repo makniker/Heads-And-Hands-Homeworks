@@ -36,6 +36,16 @@
         <item name="android:lineSpacingExtra">@dimen/text_body_error_line</item>
     </style>
 
+    <style name="TextAppearance.H2">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_h1_product_size</item>
+        <item name="android:lineSpacingExtra">@dimen/text_h1_product_line</item>
+    </style>
+
+    <style name="TextAppearance.Body2">
+        <item name="android:textSize">@dimen/text_body1_product_size</item>
+    </style>
+
     <style name="TextAppearance.TextField" parent="TextAppearance.Body1" />
 
     <style name="TextAppearance.TextField.Hint" parent="TextAppearance.Body1" />

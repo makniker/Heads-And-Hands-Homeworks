@@ -1,6 +1,8 @@
 package com.example.lesson_03_yermakov.presentation.ui.product
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +11,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
+import com.example.lesson_03_yermakov.R
 import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
+import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseProduct
 import com.example.lesson_03_yermakov.databinding.FragmentProductBinding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -48,6 +53,7 @@ class ProductFragment : Fragment() {
                 when (result) {
                     is ResponseStates.Success -> {
                         flipper.displayedChild = UIStates.SUCCESS_VIEW.ordinal
+                        bind(result.data)
                     }
 
                     is ResponseStates.Failure -> {
@@ -65,6 +71,19 @@ class ProductFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun bind(result: ResponseProduct) {
+        with(binding.productLayout) {
+            Glide.with(bigImage).load(result.preview).into(bigImage)
+            title.text = result.title
+            badge.text = result.badge[0].value
+            badge.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor( result.badge[0].color))
+            price.text = context?.getString(R.string.price_format, result.price.toString()) ?: ""
+            department.text = result.department
+            description.text = result.description
+
+        }
     }
 
     private enum class UIStates {

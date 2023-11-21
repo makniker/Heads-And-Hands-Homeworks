@@ -3,7 +3,10 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:layout_marginHorizontal="@dimen/normal_100"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/big_image"
@@ -12,47 +15,89 @@
         android:scaleType="centerCrop"
         style="@style/Theme.Lesson_03_Yermakov.ShapeableImageView"
         tool:src="@drawable/ic_launcher_background"
+        android:paddingVertical="@dimen/normal_100"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <androidx.recyclerview.widget.RecyclerView
+    <androidx.constraintlayout.helper.widget.Carousel
         android:id="@+id/small_images"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/big_image"
-        android:orientation="horizontal">
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintStart_toStartOf="@id/big_image"
+        app:layout_constraintEnd_toEndOf="@id/big_image"
+        app:layout_constraintTop_toBottomOf="@id/big_image"/>
+
     <TextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.H2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/small_images"
         app:layout_constraintTop_toTopOf="@id/badge"
-        app:layout_constraintBottom_toBottomOf="@id/badge"/>
+        app:layout_constraintBottom_toBottomOf="@id/badge"
+        tool:text="9000"/>
+
     <com.google.android.material.chip.Chip
         android:id="@+id/badge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:clickable="false"
+        android:paddingTop="@dimen/normal_100"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/small_images"/>
+
     <TextView
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="3"
-        android:textAppearance="@style/TextAppearance.Card"
+        android:textAppearance="@style/TextAppearance.H2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/badge"
         tool:text="Men's Nike Tom Brady Red Tampa Bay Buccaneers Super Bowl LV Bound Game Jersey"/>
+
     <TextView
         android:id="@+id/department"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.Body2"
+        android:textColor="@color/silver_chalice"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"/>
+        app:layout_constraintTop_toBottomOf="@id/title"
+        tool:text="Джерси"/>
 
+    <Button
+        android:id="@+id/sizes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/department"/>
 
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/TextAppearance.Body2"
+        android:maxLines="10"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sizes"
+        tool:text="The Tampa Bay Buccaneers are headed to Super Bowl LV! As a major fan, this is no surprise but it's definitely worth celebrating, especially after the unprecedented 2020 NFL season. Add this Tom Brady Game Jersey to your collection to ensure you're Super Bowl ready. This Nike gear features bold commemorative graphics that will let the Tampa Bay Buccaneers know they have the best fans in the league."/>
+
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/seashell"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/description"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/separator"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

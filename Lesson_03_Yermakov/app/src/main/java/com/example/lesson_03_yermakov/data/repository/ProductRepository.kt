@@ -18,7 +18,11 @@ class ProductRepository @Inject constructor(
         }
     }
 
-    suspend fun getProductByID(id: String) : ResponseProduct {
-        return cloudCatalogDataSource.getProductByID(id)
+    suspend fun getProductByID(id: String): ResponseProduct {
+        return if (cacheCatalogDataSource.isIDExist(id)) {
+            cloudCatalogDataSource.getProductByID(id)
+        } else {
+            cacheCatalogDataSource.getProductByID(id)
+        }
     }
 }

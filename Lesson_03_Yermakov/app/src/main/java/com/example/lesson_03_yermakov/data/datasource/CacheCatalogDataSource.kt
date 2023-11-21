@@ -20,4 +20,6 @@ class CacheCatalogDataSource @Inject constructor(private val catalogDAO: Catalog
         }
     )
 
+    fun isIDExist(id: String): Boolean = catalogDAO.checkID(id) != 0
+
 }
