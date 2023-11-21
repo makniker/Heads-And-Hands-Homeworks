@@ -11,6 +11,9 @@ interface CatalogDAO {
     @Query("SELECT * FROM productcache")
     fun getAll(): List<ProductCache>
 
+    @Query("SELECT * FROM productcache WHERE id= :id LIMIT 1")
+    fun getByID(id: String): ProductCache
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(list: List<ProductCache>)
 

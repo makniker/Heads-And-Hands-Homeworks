@@ -17,4 +17,8 @@ class ProductRepository @Inject constructor(
             fetchedData
         }
     }
+
+    suspend fun getProductByID(id: String) : ResponseProduct {
+        return cloudCatalogDataSource.getProductByID(id)
+    }
 }

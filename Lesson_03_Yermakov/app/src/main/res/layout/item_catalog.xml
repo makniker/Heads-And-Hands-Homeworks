@@ -12,6 +12,9 @@
         android:layout_height="125dp"
         android:scaleType="centerCrop"
         style="@style/Theme.Lesson_03_Yermakov.ShapeableImageView"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?android:attr/selectableItemBackground"
         tool:src="@drawable/ic_launcher_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

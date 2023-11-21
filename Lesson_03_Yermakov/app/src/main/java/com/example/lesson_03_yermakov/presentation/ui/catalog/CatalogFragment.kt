@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lesson_03_yermakov.R
@@ -58,6 +59,11 @@ class CatalogFragment : Fragment() {
                 )
             )
             toolbar.inflateMenu(R.menu.catalog_menu)
+            adapter.setOnClickListener(object : CatalogAdapter.OnClickListener {
+                override fun onClick(catData: UIModelCatalogProduct) {
+                    navigateWithCurrentData(catData)
+                }
+            })
             recyclerView.adapter = adapter
             viewModel.fetchCatalog()
             viewModel.catalogLiveData.observe(viewLifecycleOwner) { result ->
@@ -81,6 +87,12 @@ class CatalogFragment : Fragment() {
                 viewModel.fetchCatalog()
             }
         }
+    }
+
+    private fun navigateWithCurrentData(catData: UIModelCatalogProduct) {
+        val id = catData.id
+        val action = CatalogFragmentDirections.actionCatalogFragmentToProductFragment(id)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

@@ -4,7 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import com.example.lesson_03_yermakov.core.Mapper
 import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseBadge
+import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseProduct
 import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseSize
 
 @Entity
@@ -20,4 +22,17 @@ data class ProductCache(
     @ColumnInfo(name = "sizes") val sizes: ArrayList<ResponseSize>,
     @ColumnInfo(name = "description") val description: String,
     @ColumnInfo(name = "details") val details: ArrayList<String>
-)
+) : Mapper<ResponseProduct> {
+    override fun to(): ResponseProduct = ResponseProduct(
+        id,
+        title,
+        department,
+        price,
+        badge,
+        preview,
+        images,
+        sizes,
+        description,
+        details
+    )
+}

@@ -12,6 +12,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
 class NetworkModule {
@@ -21,6 +22,7 @@ class NetworkModule {
     }
 
     @Provides
+    @Singleton
     fun provideOkHttp(
         preferenceStorage: PreferenceStorage,
     ) = OkHttpClient.Builder().apply {
@@ -35,6 +37,7 @@ class NetworkModule {
         .build()
 
     @Provides
+    @Singleton
     fun provideRetrofit(
         httpClient: OkHttpClient,
         gson: Gson,
@@ -45,12 +48,14 @@ class NetworkModule {
         .build()
 
     @Provides
+    @Singleton
     fun provideGson(): Gson {
         return GsonBuilder()
             .create()
     }
 
     @Provides
+    @Singleton
     fun provideApiService(
         retrofit: Retrofit,
     ): NetworkService {

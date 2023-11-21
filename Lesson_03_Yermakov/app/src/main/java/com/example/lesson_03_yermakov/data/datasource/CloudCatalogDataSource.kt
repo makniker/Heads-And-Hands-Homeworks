@@ -11,4 +11,8 @@ class CloudCatalogDataSource@Inject constructor(
     override suspend fun getCatalog(): List<ResponseProduct> {
         return networkService.getCatalog().data
     }
+
+    override suspend fun getProductByID(id: String): ResponseProduct {
+        return networkService.getProduct(id).data
+    }
 }

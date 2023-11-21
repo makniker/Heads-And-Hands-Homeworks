@@ -1,7 +1,6 @@
 package com.example.lesson_03_yermakov.data.datasource
 
 import com.example.lesson_03_yermakov.data.cache.CatalogDAO
-import com.example.lesson_03_yermakov.data.cache.ProductCache
 import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseProduct
 import javax.inject.Inject
 
@@ -9,34 +8,15 @@ class CacheCatalogDataSource @Inject constructor(private val catalogDAO: Catalog
     CatalogDataSource {
     override suspend fun getCatalog(): List<ResponseProduct> =
         catalogDAO.getAll().map {
-            ResponseProduct(
-                it.id,
-                it.title,
-                it.department,
-                it.price,
-                it.badge,
-                it.preview,
-                it.images,
-                it.sizes,
-                it.description,
-                it.details
-            )
+            it.to()
         }
+
+    override suspend fun getProductByID(id: String): ResponseProduct =
+        catalogDAO.getByID(id).to()
 
     fun saveCatalog(list: List<ResponseProduct>) = catalogDAO.insertAll(
         list.map {
-            ProductCache(
-                it.id,
-                it.title,
-                it.department,
-                it.price,
-                it.badge,
-                it.preview,
-                it.images,
-                it.sizes,
-                it.description,
-                it.details
-            )
+            it.to()
         }
     )
 
