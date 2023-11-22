@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:background="@color/white"
-    android:orientation="vertical"
     android:layout_marginHorizontal="@dimen/normal_100"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -20,10 +19,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <androidx.constraintlayout.helper.widget.Carousel
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/small_images"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="@id/big_image"
         app:layout_constraintEnd_toEndOf="@id/big_image"
         app:layout_constraintTop_toBottomOf="@id/big_image"/>
@@ -45,8 +46,11 @@
         android:layout_height="wrap_content"
         android:clickable="false"
         android:paddingTop="@dimen/normal_100"
+        android:textAppearance="@style/TextAppearance.Body2"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/small_images"/>
+        app:layout_constraintTop_toBottomOf="@id/small_images"
+        tool:text="sfsadfdasf"/>
 
     <TextView
         android:id="@+id/title"
@@ -97,6 +101,7 @@
         android:id="@+id/details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/separator"/>
 

@@ -30,6 +30,12 @@ class ProductFragment : Fragment() {
         { this.viewModelStore },
         factoryProducer = { viewModelFactory })
 
+    @Inject
+    lateinit var imageAdapter: ImageAdapter
+
+    @Inject
+    lateinit var detailsAdapter: DetailsAdapter
+
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
 
@@ -48,6 +54,8 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
+            productLayout.smallImages.adapter = imageAdapter
+            productLayout.details.adapter = detailsAdapter
             viewModel.fetchProduct(args.idArg)
             viewModel.productLiveData.observe(viewLifecycleOwner) { result ->
                 when (result) {
@@ -78,11 +86,13 @@ class ProductFragment : Fragment() {
             Glide.with(bigImage).load(result.preview).into(bigImage)
             title.text = result.title
             badge.text = result.badge[0].value
-            badge.chipBackgroundColor = ColorStateList.valueOf(Color.parseColor( result.badge[0].color))
+            badge.chipBackgroundColor =
+                ColorStateList.valueOf(Color.parseColor(result.badge[0].color))
             price.text = context?.getString(R.string.price_format, result.price.toString()) ?: ""
             department.text = result.department
             description.text = result.description
-
+            val imageList = result.images.map { ShopImage(false, it) }
+            imageAdapter.submitList(imageList)
         }
     }
 

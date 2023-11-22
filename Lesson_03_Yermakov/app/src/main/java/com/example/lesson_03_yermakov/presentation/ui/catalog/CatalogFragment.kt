@@ -31,7 +31,7 @@ class CatalogFragment : Fragment() {
         factoryProducer = { viewModelFactory })
 
     @Inject
-    lateinit var adapter: CatalogAdapter
+    lateinit var catalogAdapter: CatalogAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -59,18 +59,18 @@ class CatalogFragment : Fragment() {
                 )
             )
             toolbar.inflateMenu(R.menu.catalog_menu)
-            adapter.setOnClickListener(object : CatalogAdapter.OnClickListener {
+            catalogAdapter.setOnClickListener(object : CatalogAdapter.OnClickListener {
                 override fun onClick(catData: UIModelCatalogProduct) {
                     navigateWithCurrentData(catData)
                 }
             })
-            recyclerView.adapter = adapter
+            recyclerView.adapter = catalogAdapter
             viewModel.fetchCatalog()
             viewModel.catalogLiveData.observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is ResponseStates.Success -> {
                         flipper.displayedChild = UIStates.SUCCESS_VIEW.ordinal
-                        adapter.submitList(result.data)
+                        catalogAdapter.submitList(result.data)
                     }
 
                     is ResponseStates.Failure -> {
