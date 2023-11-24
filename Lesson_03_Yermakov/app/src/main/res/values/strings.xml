@@ -15,4 +15,6 @@
     <string name="buy">Купить</string>
     <string name="price_format">%s ₽</string>
     <string name="details_format">• %s</string>
+    <string name="size">Размер</string>
+    <string name="buy_now">КУПИТЬ СЕЙЧАС</string>
 </resources>

@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseSize(
     @SerializedName("value") val value: String,
-    @SerializedName("isAvailable") val isAvailable: String
+    @SerializedName("isAvailable") val isAvailable: Boolean
 )

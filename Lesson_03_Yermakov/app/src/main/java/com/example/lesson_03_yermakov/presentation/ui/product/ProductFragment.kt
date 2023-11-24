@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
@@ -17,6 +18,7 @@ import com.example.lesson_03_yermakov.core.OnRecyclerItemClickListener
 import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
 import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseProduct
 import com.example.lesson_03_yermakov.databinding.FragmentProductBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
@@ -56,6 +58,8 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
+            toolbar.setNavigationIcon(R.drawable.ic_up)
+            toolbar.setNavigationOnClickListener { parentFragmentManager.popBackStack() }
             productLayout.smallImages.adapter = imageAdapter
             imageAdapter.setOnClickListener(object :
                 OnRecyclerItemClickListener<ShopImage> {
@@ -104,6 +108,68 @@ class ProductFragment : Fragment() {
                 context?.getString(R.string.details_format, it) ?: ""
             }
             setUpGallery(result)
+
+            val availableList = result.sizes.filter { it.isAvailable }.map { it.value }
+
+            textSize.setText(availableList[0])
+
+            sizes.setEndIconOnClickListener {
+                val dialog = BottomSheetDialog(requireContext())
+                dialog.setContentView(R.layout.bottom_sizes_dialog)
+                val xs = dialog.findViewById<TextView>(R.id.xs_size)
+                val s = dialog.findViewById<TextView>(R.id.s_size)
+                val m = dialog.findViewById<TextView>(R.id.m_size)
+                val l = dialog.findViewById<TextView>(R.id.l_size)
+                val xl = dialog.findViewById<TextView>(R.id.xl_size)
+
+                xs?.visibility = if (availableList.contains("XS")) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+                s?.visibility = if (availableList.contains("S")) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+                m?.visibility = if (availableList.contains("M")) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+                l?.visibility = if (availableList.contains("L")) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+                xl?.visibility = if (availableList.contains("XL")) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
+
+                xs?.setOnClickListener {
+                    textSize.setText(xs.text)
+                    dialog.dismiss()
+                }
+                s?.setOnClickListener {
+                    textSize.setText(s.text)
+                    dialog.dismiss()
+                }
+                m?.setOnClickListener {
+                    textSize.setText(m.text)
+                    dialog.dismiss()
+                }
+                l?.setOnClickListener {
+                    textSize.setText(l.text)
+                    dialog.dismiss()
+                }
+                xl?.setOnClickListener {
+                    textSize.setText(xl.text)
+                    dialog.dismiss()
+                }
+                dialog.show()
+            }
         }
     }
 
