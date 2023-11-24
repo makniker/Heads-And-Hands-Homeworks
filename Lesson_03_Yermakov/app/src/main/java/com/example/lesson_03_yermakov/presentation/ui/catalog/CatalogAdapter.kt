@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lesson_03_yermakov.R
+import com.example.lesson_03_yermakov.core.OnRecyclerItemClickListener
 import com.google.android.material.imageview.ShapeableImageView
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class CatalogAdapter @Inject constructor() :
     ListAdapter<UIModelCatalogProduct, CatalogAdapter.ProductViewHolder>(DIFF_UTIL) {
     @Inject
     lateinit var context: Context
-    private lateinit var onClickListener: OnClickListener
+    private lateinit var onCatalogClickListener: OnRecyclerItemClickListener<UIModelCatalogProduct>
 
 
     companion object {
@@ -35,7 +36,7 @@ class CatalogAdapter @Inject constructor() :
         }
     }
 
-    inner class ProductViewHolder(view: View, private val onClickListener: OnClickListener) :
+    inner class ProductViewHolder(view: View, private val onCatalogClickListener: OnRecyclerItemClickListener<UIModelCatalogProduct>) :
         RecyclerView.ViewHolder(view) {
 
         private val imageView = view.findViewById<ShapeableImageView>(R.id.product_image)
@@ -49,25 +50,21 @@ class CatalogAdapter @Inject constructor() :
             price.text = context.getString(R.string.price_format, item.price.toString())
             imageView.maxHeight = imageView.maxWidth
             Glide.with(imageView).load(item.preview).into(imageView)
-            itemView.setOnClickListener { onClickListener.onClick(item) }
+            itemView.setOnClickListener { onCatalogClickListener.onClick(item) }
         }
 
     }
 
-    interface OnClickListener {
-        fun onClick(catData: UIModelCatalogProduct)
-    }
-
-    fun setOnClickListener(onClickListener: OnClickListener) {
-        this.onClickListener = onClickListener
+    fun setOnClickListener(onCatalogClickListener: OnRecyclerItemClickListener<UIModelCatalogProduct>) {
+        this.onCatalogClickListener = onCatalogClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         return ProductViewHolder(LayoutInflater.from(parent.context)
             .inflate(R.layout.item_catalog, parent, false),
-            object : OnClickListener {
-                override fun onClick(catData: UIModelCatalogProduct) =
-                    onClickListener.onClick(catData)
+            object : OnRecyclerItemClickListener<UIModelCatalogProduct> {
+                override fun onClick(item: UIModelCatalogProduct) =
+                    onCatalogClickListener.onClick(item)
             })
     }
 

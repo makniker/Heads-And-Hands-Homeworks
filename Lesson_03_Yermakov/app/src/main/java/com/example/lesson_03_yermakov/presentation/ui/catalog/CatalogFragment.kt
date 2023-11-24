@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lesson_03_yermakov.R
+import com.example.lesson_03_yermakov.core.OnRecyclerItemClickListener
 import com.example.lesson_03_yermakov.core.fitContentViewToInsets
 import com.example.lesson_03_yermakov.core.getError
 import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
@@ -59,9 +60,10 @@ class CatalogFragment : Fragment() {
                 )
             )
             toolbar.inflateMenu(R.menu.catalog_menu)
-            catalogAdapter.setOnClickListener(object : CatalogAdapter.OnClickListener {
-                override fun onClick(catData: UIModelCatalogProduct) {
-                    navigateWithCurrentData(catData)
+            catalogAdapter.setOnClickListener(object :
+                OnRecyclerItemClickListener<UIModelCatalogProduct> {
+                override fun onClick(item: UIModelCatalogProduct) {
+                    navigateWithCurrentData(item)
                 }
             })
             recyclerView.adapter = catalogAdapter

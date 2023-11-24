@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="4dp">
 
 
     <com.google.android.material.imageview.ShapeableImageView
@@ -14,7 +15,8 @@
         android:background="@color/white"
         android:scaleType="centerCrop"
         app:strokeColor="@color/silver_chalice"
-        app:strokeWidth="4dp" />
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize"
+        app:strokeWidth="2dp" />
 
 
     <com.google.android.material.imageview.ShapeableImageView

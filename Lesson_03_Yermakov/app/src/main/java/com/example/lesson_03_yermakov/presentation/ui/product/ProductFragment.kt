@@ -13,11 +13,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.lesson_03_yermakov.R
+import com.example.lesson_03_yermakov.core.OnRecyclerItemClickListener
 import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
 import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseProduct
 import com.example.lesson_03_yermakov.databinding.FragmentProductBinding
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+
+private const val DESCRIPTION_PREFIX = "description: "
+private const val MAX_IMAGE_COUNT = 3
 
 class ProductFragment : Fragment() {
     private val args: ProductFragmentArgs by navArgs()
@@ -33,11 +37,9 @@ class ProductFragment : Fragment() {
     @Inject
     lateinit var imageAdapter: ImageAdapter
 
-    @Inject
-    lateinit var detailsAdapter: DetailsAdapter
-
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
+    private var imageList = mutableListOf<ShopImage>()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -55,7 +57,15 @@ class ProductFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         with(binding) {
             productLayout.smallImages.adapter = imageAdapter
-            productLayout.details.adapter = detailsAdapter
+            imageAdapter.setOnClickListener(object :
+                OnRecyclerItemClickListener<ShopImage> {
+                override fun onClick(item: ShopImage) {
+                    imageList.forEach { it.isSelected = false }
+                    refreshGallery(item)
+                    imageAdapter.submitList(imageList)
+                    imageAdapter.notifyItemRangeChanged(0, MAX_IMAGE_COUNT)
+                }
+            })
             viewModel.fetchProduct(args.idArg)
             viewModel.productLiveData.observe(viewLifecycleOwner) { result ->
                 when (result) {
@@ -83,16 +93,40 @@ class ProductFragment : Fragment() {
 
     private fun bind(result: ResponseProduct) {
         with(binding.productLayout) {
-            Glide.with(bigImage).load(result.preview).into(bigImage)
             title.text = result.title
             badge.text = result.badge[0].value
             badge.chipBackgroundColor =
                 ColorStateList.valueOf(Color.parseColor(result.badge[0].color))
             price.text = context?.getString(R.string.price_format, result.price.toString()) ?: ""
             department.text = result.department
-            description.text = result.description
-            val imageList = result.images.map { ShopImage(false, it) }
-            imageAdapter.submitList(imageList)
+            description.text = result.description.substring(DESCRIPTION_PREFIX.length).trimStart()
+            details.text = result.details.joinToString("\n") {
+                context?.getString(R.string.details_format, it) ?: ""
+            }
+            setUpGallery(result)
+        }
+    }
+
+    private fun setUpGallery(result: ResponseProduct) {
+        imageList = result.images.map { ShopImage(false, it) }.toMutableList()
+        if (imageList.size < MAX_IMAGE_COUNT) {
+            for (i in 0..(MAX_IMAGE_COUNT - imageList.size)) {
+                imageList.add(ShopImage(false, ""))
+            }
+        }
+        val item = imageList[0]
+        refreshGallery(item)
+        imageAdapter.submitList(imageList)
+    }
+
+    private fun refreshGallery(item: ShopImage) {
+        with(binding.productLayout) {
+            item.isSelected = true
+            if (item.imageUrl.isNotEmpty()) {
+                Glide.with(bigImage).load(item.imageUrl).into(bigImage)
+            } else {
+                bigImage.setImageResource(R.drawable.ic_error_logo)
+            }
         }
     }
 
