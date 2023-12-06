@@ -141,7 +141,7 @@ class ProductFragment : Fragment() {
 
     private fun showBottomDialog(sizes: List<String>) {
         val dialogView = layoutInflater.inflate(R.layout.fragment_size_dialog, null)
-        dialog = BottomSheetDialog(requireContext())
+        dialog = BottomSheetDialog(requireContext(), R.style.AppBottomSheetDialogTheme)
         dialog.setContentView(dialogView)
         sizeRecycler = dialogView.findViewById(R.id.sizes)
         val adapter = SizeAdapter { size: String ->
