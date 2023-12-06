@@ -20,7 +20,15 @@ fun Fragment.hideKeyboard() {
 fun Exception.getError(): String? {
     return if (this is HttpException) {
         val errorBody = response()?.errorBody()?.string()
-        Gson().fromJson(errorBody, ErrorBaseResponse::class.java).error.message
+        if (errorBody == null) {
+            "Exception with null body"
+        } else {
+            if (errorBody.isEmpty()) {
+                "Exception with empty body"
+            } else {
+                Gson().fromJson(errorBody, ErrorBaseResponse::class.java).error.message
+            }
+        }
     } else {
         message
     }

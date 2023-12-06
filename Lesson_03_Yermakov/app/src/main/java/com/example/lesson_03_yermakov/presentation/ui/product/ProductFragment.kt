@@ -7,14 +7,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lesson_03_yermakov.R
-import com.example.lesson_03_yermakov.core.OnRecyclerItemClickListener
 import com.example.lesson_03_yermakov.data.responsemodel.ResponseStates
 import com.example.lesson_03_yermakov.data.responsemodel.product.ResponseProduct
 import com.example.lesson_03_yermakov.databinding.FragmentProductBinding
@@ -36,8 +35,9 @@ class ProductFragment : Fragment() {
         { this.viewModelStore },
         factoryProducer = { viewModelFactory })
 
-    @Inject
     lateinit var imageAdapter: ImageAdapter
+    private lateinit var dialog: BottomSheetDialog
+    private lateinit var sizeRecycler: RecyclerView
 
     private var _binding: FragmentProductBinding? = null
     private val binding get() = _binding!!
@@ -60,16 +60,13 @@ class ProductFragment : Fragment() {
         with(binding) {
             toolbar.setNavigationIcon(R.drawable.ic_up)
             toolbar.setNavigationOnClickListener { parentFragmentManager.popBackStack() }
+            imageAdapter = ImageAdapter { item: ShopImage ->
+                imageList.forEach { it.isSelected = false }
+                refreshGallery(item)
+                imageAdapter.submitList(imageList)
+                imageAdapter.notifyItemRangeChanged(0, MAX_IMAGE_COUNT)
+            }
             productLayout.smallImages.adapter = imageAdapter
-            imageAdapter.setOnClickListener(object :
-                OnRecyclerItemClickListener<ShopImage> {
-                override fun onClick(item: ShopImage) {
-                    imageList.forEach { it.isSelected = false }
-                    refreshGallery(item)
-                    imageAdapter.submitList(imageList)
-                    imageAdapter.notifyItemRangeChanged(0, MAX_IMAGE_COUNT)
-                }
-            })
             viewModel.fetchProduct(args.idArg)
             viewModel.productLiveData.observe(viewLifecycleOwner) { result ->
                 when (result) {
@@ -114,61 +111,7 @@ class ProductFragment : Fragment() {
             textSize.setText(availableList[0])
 
             sizes.setEndIconOnClickListener {
-                val dialog = BottomSheetDialog(requireContext())
-                dialog.setContentView(R.layout.bottom_sizes_dialog)
-                val xs = dialog.findViewById<TextView>(R.id.xs_size)
-                val s = dialog.findViewById<TextView>(R.id.s_size)
-                val m = dialog.findViewById<TextView>(R.id.m_size)
-                val l = dialog.findViewById<TextView>(R.id.l_size)
-                val xl = dialog.findViewById<TextView>(R.id.xl_size)
-
-                xs?.visibility = if (availableList.contains("XS")) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-                s?.visibility = if (availableList.contains("S")) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-                m?.visibility = if (availableList.contains("M")) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-                l?.visibility = if (availableList.contains("L")) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-                xl?.visibility = if (availableList.contains("XL")) {
-                    View.VISIBLE
-                } else {
-                    View.GONE
-                }
-
-                xs?.setOnClickListener {
-                    textSize.setText(xs.text)
-                    dialog.dismiss()
-                }
-                s?.setOnClickListener {
-                    textSize.setText(s.text)
-                    dialog.dismiss()
-                }
-                m?.setOnClickListener {
-                    textSize.setText(m.text)
-                    dialog.dismiss()
-                }
-                l?.setOnClickListener {
-                    textSize.setText(l.text)
-                    dialog.dismiss()
-                }
-                xl?.setOnClickListener {
-                    textSize.setText(xl.text)
-                    dialog.dismiss()
-                }
-                dialog.show()
+                showBottomDialog(availableList)
             }
         }
     }
@@ -194,6 +137,20 @@ class ProductFragment : Fragment() {
                 bigImage.setImageResource(R.drawable.ic_error_logo)
             }
         }
+    }
+
+    private fun showBottomDialog(sizes: List<String>) {
+        val dialogView = layoutInflater.inflate(R.layout.fragment_size_dialog, null)
+        dialog = BottomSheetDialog(requireContext())
+        dialog.setContentView(dialogView)
+        sizeRecycler = dialogView.findViewById(R.id.sizes)
+        val adapter = SizeAdapter { size: String ->
+            binding.productLayout.textSize.setText(size)
+            dialog.dismiss()
+        }
+        adapter.submitList(sizes)
+        sizeRecycler.adapter = adapter
+        dialog.show()
     }
 
     private enum class UIStates {

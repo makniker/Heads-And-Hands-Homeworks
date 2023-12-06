@@ -1,18 +1,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/normal_100">
+    android:layout_height="wrap_content">
 
     <ScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tool="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:padding="@dimen/normal_100"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <com.google.android.material.imageview.ShapeableImageView
@@ -56,6 +56,7 @@
                 android:paddingTop="@dimen/normal_100"
                 android:textAppearance="@style/TextAppearance.Body2"
                 android:textColor="@color/white"
+                android:paddingHorizontal="@dimen/normal_100"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/small_images"
                 tool:text="sfsadfdasf" />
@@ -76,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="@style/TextAppearance.Body2"
                 android:textColor="@color/silver_chalice"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintEnd_toEndOf="@id/title"
                 app:layout_constraintTop_toBottomOf="@id/title"
                 tool:text="Джерси" />
 
@@ -84,8 +86,10 @@
                 android:id="@+id/sizes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@id/department"
+                app:layout_constraintEnd_toEndOf="@id/department"
                 app:layout_constraintTop_toBottomOf="@id/department"
+                android:paddingVertical="@dimen/normal_100"
                 app:endIconMode="custom"
                 android:hint="@string/size"
                 app:endIconDrawable="@drawable/ic_chevron_right">
@@ -103,6 +107,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/sizes"
+                android:paddingBottom="@dimen/normal_100"
                 tool:text="The Tampa Bay Buccaneers are headed to Super Bowl LV! As a major fan, this is no surprise but it's definitely worth celebrating, especially after the unprecedented 2020 NFL season. Add this Tom Brady Game Jersey to your collection to ensure you're Super Bowl ready. This Nike gear features bold commemorative graphics that will let the Tampa Bay Buccaneers know they have the best fans in the league." />
 
             <View
@@ -119,9 +124,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/silver_chalice"
+                android:paddingVertical="@dimen/normal_100"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/separator"
                 tool:text="gsflkgbk\nsadbkbfkjbsdb\nfkjdsabkjfbk\njadsbfkjsdbk\njfbaskdfkjbsdakf\nkjadsbf\nkjbdskf\nkjads\nbfkjbsdjfk\njadsbfkjads\nbfkj" />
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_300"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -130,6 +142,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/normal_100"
         android:text="@string/buy_now"/>
 
 </RelativeLayout>

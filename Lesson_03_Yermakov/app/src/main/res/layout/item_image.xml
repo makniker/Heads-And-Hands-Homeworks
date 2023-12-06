@@ -28,6 +28,4 @@
         android:background="@color/silver_chalice"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_small_error" />
-
-
 </RelativeLayout>

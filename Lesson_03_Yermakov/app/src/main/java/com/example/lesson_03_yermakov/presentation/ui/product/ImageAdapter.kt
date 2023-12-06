@@ -10,18 +10,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lesson_03_yermakov.R
-import com.example.lesson_03_yermakov.core.OnRecyclerItemClickListener
 import com.google.android.material.imageview.ShapeableImageView
-import javax.inject.Inject
 
-class ImageAdapter @Inject constructor() :
+class ImageAdapter(private val clickListener: (ShopImage) -> Unit) :
     ListAdapter<ShopImage, ImageAdapter.ShopImageViewHolder>(DIFF_UTIL) {
-
-    private lateinit var onImageClickListener: OnRecyclerItemClickListener<ShopImage>
-
-    fun setOnClickListener(onImageClickListener: OnRecyclerItemClickListener<ShopImage>) {
-        this.onImageClickListener = onImageClickListener
-    }
 
     companion object {
         private val DIFF_UTIL = object : DiffUtil.ItemCallback<ShopImage>() {
@@ -38,14 +30,13 @@ class ImageAdapter @Inject constructor() :
     }
 
     inner class ShopImageViewHolder(
-        view: View,
-        private val onImageClickListener: OnRecyclerItemClickListener<ShopImage>
+        view: View
     ) :
         RecyclerView.ViewHolder(view) {
         private val imageView = view.findViewById<ShapeableImageView>(R.id.image)
         private val stroke = view.findViewById<ShapeableImageView>(R.id.stroke)
 
-        fun bind(item: ShopImage) {
+        fun bind(item: ShopImage, clickListener: (ShopImage) -> Unit) {
             if (item.imageUrl.isNotEmpty()) {
                 Glide.with(imageView).load(item.imageUrl).into(imageView)
             } else {
@@ -57,7 +48,7 @@ class ImageAdapter @Inject constructor() :
                 stroke.strokeColor = ColorStateList.valueOf(Color.parseColor("white"))
             }
             itemView.setOnClickListener {
-                onImageClickListener.onClick(item)
+                clickListener(item)
             }
         }
 
@@ -66,15 +57,11 @@ class ImageAdapter @Inject constructor() :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopImageViewHolder =
         ShopImageViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_image, parent, false), object : OnRecyclerItemClickListener<ShopImage> {
-                override fun onClick(item: ShopImage) {
-                    onImageClickListener.onClick(item)
-                }
-            }
+                .inflate(R.layout.item_image, parent, false)
         )
 
     override fun onBindViewHolder(holder: ShopImageViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position], clickListener)
     }
 
 }

@@ -5,7 +5,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:padding="@dimen/normal_100"
-    android:background="@color/white">
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@android:color/white"
+    android:foreground="?attr/selectableItemBackground">
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/product_image"
         android:layout_width="125dp"

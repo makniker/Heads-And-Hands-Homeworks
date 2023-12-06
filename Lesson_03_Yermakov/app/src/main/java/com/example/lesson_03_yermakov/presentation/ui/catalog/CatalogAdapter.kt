@@ -1,6 +1,5 @@
 package com.example.lesson_03_yermakov.presentation.ui.catalog
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.lesson_03_yermakov.R
-import com.example.lesson_03_yermakov.core.OnRecyclerItemClickListener
 import com.google.android.material.imageview.ShapeableImageView
-import javax.inject.Inject
 
-class CatalogAdapter @Inject constructor() :
+class CatalogAdapter(private val clickListener: (UIModelCatalogProduct) -> Unit) :
     ListAdapter<UIModelCatalogProduct, CatalogAdapter.ProductViewHolder>(DIFF_UTIL) {
-    @Inject
-    lateinit var context: Context
-    private lateinit var onCatalogClickListener: OnRecyclerItemClickListener<UIModelCatalogProduct>
-
 
     companion object {
         private val DIFF_UTIL = object : DiffUtil.ItemCallback<UIModelCatalogProduct>() {
@@ -36,7 +29,7 @@ class CatalogAdapter @Inject constructor() :
         }
     }
 
-    inner class ProductViewHolder(view: View, private val onCatalogClickListener: OnRecyclerItemClickListener<UIModelCatalogProduct>) :
+    inner class ProductViewHolder(view: View) :
         RecyclerView.ViewHolder(view) {
 
         private val imageView = view.findViewById<ShapeableImageView>(R.id.product_image)
@@ -44,31 +37,25 @@ class CatalogAdapter @Inject constructor() :
         private val department = view.findViewById<TextView>(R.id.department)
         private val price = view.findViewById<TextView>(R.id.price)
 
-        fun bind(item: UIModelCatalogProduct) {
+        fun bind(item: UIModelCatalogProduct, clickListener: (UIModelCatalogProduct) -> Unit) {
             title.text = item.title
             department.text = item.department
-            price.text = context.getString(R.string.price_format, item.price.toString())
             imageView.maxHeight = imageView.maxWidth
             Glide.with(imageView).load(item.preview).into(imageView)
-            itemView.setOnClickListener { onCatalogClickListener.onClick(item) }
+            price.text = item.price
+            itemView.setOnClickListener { clickListener(item) }
         }
 
     }
 
-    fun setOnClickListener(onCatalogClickListener: OnRecyclerItemClickListener<UIModelCatalogProduct>) {
-        this.onCatalogClickListener = onCatalogClickListener
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        return ProductViewHolder(LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_catalog, parent, false),
-            object : OnRecyclerItemClickListener<UIModelCatalogProduct> {
-                override fun onClick(item: UIModelCatalogProduct) =
-                    onCatalogClickListener.onClick(item)
-            })
+        return ProductViewHolder(
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_catalog, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position], clickListener)
     }
 }
