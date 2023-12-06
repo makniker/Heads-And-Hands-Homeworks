@@ -3,22 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment">
+    app:startDestination="@id/sign_in_fragment">
 
     <fragment
-        android:id="@+id/signInFragment"
+        android:id="@+id/sign_in_fragment"
         android:name="com.example.lesson_03_yermakov.presentation.ui.signIn.SignInFragment"
         android:label="fragment_sign_in"
-        tools:layout="@layout/fragment_sign_in" >
+        tools:layout="@layout/fragment_sign_in">
         <action
             android:id="@+id/action_sign_in_fragment_to_catalog_fragment"
-            app:destination="@id/catalogFragment"
+            app:destination="@id/catalog_fragment"
             app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/catalogFragment"
+        android:id="@+id/catalog_fragment"
         android:name="com.example.lesson_03_yermakov.presentation.ui.catalog.CatalogFragment"
         android:label="fragment_catalog"
-        tools:layout="@layout/fragment_catalog" />
+        tools:layout="@layout/fragment_catalog">
+        <action
+            android:id="@+id/action_catalog_fragment_to_product_fragment"
+            app:destination="@id/product_fragment">
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/product_fragment"
+        android:name="com.example.lesson_03_yermakov.presentation.ui.product.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product">
+        <argument
+            android:name="idArg"
+            android:defaultValue="0"
+            app:argType="string" />
+    </fragment>
 </navigation>

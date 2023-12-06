@@ -1,0 +1,148 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tool="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/normal_100"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/big_image"
+                style="@style/Theme.Lesson_03_Yermakov.ShapeableImageView"
+                android:layout_width="284dp"
+                android:layout_height="284dp"
+                android:paddingVertical="@dimen/normal_100"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tool:src="@drawable/ic_launcher_background" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/small_images"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/big_image"
+                app:layout_constraintStart_toStartOf="@id/big_image"
+                app:layout_constraintTop_toBottomOf="@id/big_image" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.H2"
+                app:layout_constraintBottom_toBottomOf="@id/badge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/small_images"
+                app:layout_constraintTop_toTopOf="@id/badge"
+                tool:text="9000" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:paddingTop="@dimen/normal_100"
+                android:textAppearance="@style/TextAppearance.Body2"
+                android:textColor="@color/white"
+                android:paddingHorizontal="@dimen/normal_100"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/small_images"
+                tool:text="sfsadfdasf" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="3"
+                android:textAppearance="@style/TextAppearance.H2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/badge"
+                tool:text="Men's Nike Tom Brady Red Tampa Bay Buccaneers Super Bowl LV Bound Game Jersey" />
+
+            <TextView
+                android:id="@+id/department"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.Body2"
+                android:textColor="@color/silver_chalice"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintEnd_toEndOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@id/title"
+                tool:text="Джерси" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sizes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/department"
+                app:layout_constraintEnd_toEndOf="@id/department"
+                app:layout_constraintTop_toBottomOf="@id/department"
+                android:paddingVertical="@dimen/normal_100"
+                app:endIconMode="custom"
+                android:hint="@string/size"
+                app:endIconDrawable="@drawable/ic_chevron_right">
+                <EditText
+                    android:id="@+id/text_size"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/description"
+                style="@style/TextAppearance.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sizes"
+                android:paddingBottom="@dimen/normal_100"
+                tool:text="The Tampa Bay Buccaneers are headed to Super Bowl LV! As a major fan, this is no surprise but it's definitely worth celebrating, especially after the unprecedented 2020 NFL season. Add this Tom Brady Game Jersey to your collection to ensure you're Super Bowl ready. This Nike gear features bold commemorative graphics that will let the Tampa Bay Buccaneers know they have the best fans in the league." />
+
+            <View
+                android:id="@+id/separator"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/seashell"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/description" />
+
+            <TextView
+                android:id="@+id/details"
+                style="@style/TextAppearance.Body2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/silver_chalice"
+                android:paddingVertical="@dimen/normal_100"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/separator"
+                tool:text="gsflkgbk\nsadbkbfkjbsdb\nfkjdsabkjfbk\njadsbfkjsdbk\njfbaskdfkjbsdakf\nkjadsbf\nkjbdskf\nkjads\nbfkjbsdjfk\njadsbfkjads\nbfkj" />
+            <View
+                android:id="@+id/separator2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_300"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginHorizontal="@dimen/normal_100"
+        android:text="@string/buy_now"/>
+
+</RelativeLayout>

@@ -1,5 +1,7 @@
 package com.example.lesson_03_yermakov.data.responsemodel.product
 
+import com.example.lesson_03_yermakov.core.Mapper
+import com.example.lesson_03_yermakov.data.cache.ProductCache
 import com.google.gson.annotations.SerializedName
 
 data class ResponseProduct(
@@ -13,4 +15,17 @@ data class ResponseProduct(
     @SerializedName("sizes") val sizes: ArrayList<ResponseSize>,
     @SerializedName("description") val description: String,
     @SerializedName("details") val details: ArrayList<String>
-)
+) : Mapper<ProductCache> {
+    override fun to(): ProductCache =
+        ProductCache(
+            id,
+            title,
+            department,
+            price,
+            badge,
+            preview,
+            images,
+            sizes,
+            description,
+            details)
+}

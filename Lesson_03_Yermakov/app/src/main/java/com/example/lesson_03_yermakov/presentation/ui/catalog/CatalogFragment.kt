@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.createViewModelLazy
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lesson_03_yermakov.R
@@ -29,8 +30,7 @@ class CatalogFragment : Fragment() {
         { this.viewModelStore },
         factoryProducer = { viewModelFactory })
 
-    @Inject
-    lateinit var adapter: CatalogAdapter
+    lateinit var catalogAdapter: CatalogAdapter
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -58,13 +58,15 @@ class CatalogFragment : Fragment() {
                 )
             )
             toolbar.inflateMenu(R.menu.catalog_menu)
-            recyclerView.adapter = adapter
+            catalogAdapter =
+                CatalogAdapter { item: UIModelCatalogProduct -> navigateWithCurrentData(item) }
+            recyclerView.adapter = catalogAdapter
             viewModel.fetchCatalog()
             viewModel.catalogLiveData.observe(viewLifecycleOwner) { result ->
                 when (result) {
                     is ResponseStates.Success -> {
                         flipper.displayedChild = UIStates.SUCCESS_VIEW.ordinal
-                        adapter.submitList(result.data)
+                        catalogAdapter.submitList(result.data)
                     }
 
                     is ResponseStates.Failure -> {
@@ -81,6 +83,12 @@ class CatalogFragment : Fragment() {
                 viewModel.fetchCatalog()
             }
         }
+    }
+
+    private fun navigateWithCurrentData(catData: UIModelCatalogProduct) {
+        val id = catData.id
+        val action = CatalogFragmentDirections.actionCatalogFragmentToProductFragment(id)
+        findNavController().navigate(action)
     }
 
     override fun onDestroyView() {

@@ -7,6 +7,7 @@ import com.example.lesson_03_yermakov.data.responsemodel.user.ResponseLogin
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface NetworkService {
     @PUT("user/signin")
@@ -16,4 +17,7 @@ interface NetworkService {
 
     @GET("products")
     suspend fun getCatalog(): BaseResponse<List<ResponseProduct>>
+
+    @GET("products/{id}")
+    suspend fun getProduct(@Path("id") id: String): BaseResponse<ResponseProduct>
 }

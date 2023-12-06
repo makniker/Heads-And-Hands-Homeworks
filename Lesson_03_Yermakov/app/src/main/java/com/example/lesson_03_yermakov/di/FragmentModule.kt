@@ -1,6 +1,7 @@
 package com.example.lesson_03_yermakov.di
 
 import com.example.lesson_03_yermakov.presentation.ui.catalog.CatalogFragment
+import com.example.lesson_03_yermakov.presentation.ui.product.ProductFragment
 import com.example.lesson_03_yermakov.presentation.ui.signIn.SignInFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -11,4 +12,6 @@ abstract class FragmentModule {
     abstract fun signInFragment(): SignInFragment
     @ContributesAndroidInjector
     abstract fun catalogFragment(): CatalogFragment
+    @ContributesAndroidInjector
+    abstract fun productFragment(): ProductFragment
 }

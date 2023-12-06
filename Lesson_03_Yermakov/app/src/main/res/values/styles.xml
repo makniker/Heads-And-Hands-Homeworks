@@ -36,6 +36,16 @@
         <item name="android:lineSpacingExtra">@dimen/text_body_error_line</item>
     </style>
 
+    <style name="TextAppearance.H2">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">@dimen/text_h1_product_size</item>
+        <item name="android:lineSpacingExtra">@dimen/text_h1_product_line</item>
+    </style>
+
+    <style name="TextAppearance.Body2">
+        <item name="android:textSize">@dimen/text_body1_product_size</item>
+    </style>
+
     <style name="TextAppearance.TextField" parent="TextAppearance.Body1" />
 
     <style name="TextAppearance.TextField.Hint" parent="TextAppearance.Body1" />
@@ -112,4 +122,23 @@
     <style name="RoundedSquare" >
         <item name="cornerSize">10%</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.App.CornerSize" parent="">
+        <item name="cornerSize">20%</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+    </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/rounded_dialog</item>
+    </style>
+
 </resources>
